@@ -11,7 +11,7 @@ pipeline {
             steps {
                 sh '''
                 docker run --rm \
-                --network=selenium-grid-setup_grid \
+                --network=selenium-grid \
                 -e GRID_URL=$GRID_URL \
                 -v $PWD:/app \
                 -w /app \
