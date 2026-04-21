@@ -25,13 +25,19 @@ pipeline {
         stage('Wait for Grid') {
             steps {
                 bat '''
-                for /L %%i in (1,1,15) do (
-                    curl -s http://localhost:4444/status | findstr "ready"
-                    if not errorlevel 1 goto ok
-                    timeout /t 5
+                echo Waiting for Selenium Grid...
+
+                for /L %%i in (1,1,20) do (
+                    curl -s http://localhost:4444/status > nul
+                    if not errorlevel 1 (
+                        echo Grid is READY
+                        exit /b 0
+                    )
+                    timeout /t 5 > nul
                 )
-                :ok
-                echo Grid Ready
+
+                echo Grid FAILED
+                exit /b 1
                 '''
             }
         }
