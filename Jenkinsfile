@@ -1,85 +1,35 @@
 pipeline {
     agent any
 
-    environment {
-        GRID_URL = "http://host.docker.internal:4444/wd/hub"
-        GRID_STATUS_URL = "http://localhost:4444/status"
-    }
-
-    options {
-        timestamps()
-        disableConcurrentBuilds()
-    }
-
     stages {
 
-        stage('Cleanup Old Grid') {
+        stage('Start Grid') {
             steps {
-                bat '''
-                echo Cleaning up old containers...
-
-                docker-compose down --remove-orphans || exit 0
-                docker container prune -f || exit 0
-                '''
+                bat 'docker-compose up -d'
             }
         }
 
-        stage('Start Selenium Grid') {
+        stage('Wait Grid') {
             steps {
-                bat '''
-                echo Starting Selenium Grid...
-
-                docker-compose up -d
-                '''
+                bat 'powershell Start-Sleep -Seconds 10'
             }
         }
 
-        stage('Wait for Grid Ready') {
+        stage('Run Tests (Isolated Docker)') {
             steps {
-                bat '''
-                powershell -Command ^
-                for ($i=0; $i -lt 10; $i++) { ^
-                    try { ^
-                        Invoke-WebRequest http://localhost:4444/status ^
-                        if ($?) { exit 0 } ^
-                    } catch {} ^
-                    Start-Sleep -Seconds 5 ^
-                }
-                '''
-            }
-        }
-
-        stage('Run Tests (Maven + Docker)') {
-            steps {
-                bat '''
-                echo Running tests inside Maven container...
-
+                bat """
                 docker run --rm ^
-                  -e GRID_URL=%GRID_URL% ^
-                  -v %cd%:/app ^
-                  -w /app ^
+                  --network=selenium-grid ^
                   maven:3.9.6-eclipse-temurin-17 ^
-                  mvn clean test
-                '''
+                  sh -c "git clone https://github.com/SambathPK/automation-framework.git && cd automation-framework && mvn clean test"
+                """
             }
         }
-    }
 
-    post {
-        always {
-            bat '''
-            echo Cleaning up Selenium Grid...
-
-            docker-compose down --remove-orphans || exit 0
-            '''
-        }
-
-        success {
-            echo "Pipeline completed successfully!"
-        }
-
-        failure {
-            echo "Pipeline failed. Check logs above."
+        stage('Cleanup') {
+            steps {
+                bat 'docker-compose down'
+            }
         }
     }
 }
