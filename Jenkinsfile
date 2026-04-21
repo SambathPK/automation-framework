@@ -1,19 +1,15 @@
 pipeline {
     agent any
 
-    environment {
-        GRID_URL = "http://selenium-hub:4444/wd/hub"
-    }
-
     stages {
 
-        stage('Build') {
+        stage('Checkout') {
             steps {
-                sh 'mvn clean install -DskipTests'
+                git 'https://github.com/SambathPK/automation-framework.git'
             }
         }
 
-        stage('Run Tests in Docker') {
+        stage('Build + Test in Docker') {
             steps {
                 sh '''
                 docker run --rm \
@@ -22,7 +18,7 @@ pipeline {
                 -v $PWD:/app \
                 -w /app \
                 maven:3.9.6-eclipse-temurin-17 \
-                mvn test
+                mvn clean test
                 '''
             }
         }
