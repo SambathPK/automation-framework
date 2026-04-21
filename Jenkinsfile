@@ -1,13 +1,11 @@
 pipeline {
     agent any
 
-    stages {
+    environment {
+        GRID_URL = "http://selenium-hub:4444/wd/hub"
+    }
 
-        stage('Checkout') {
-            steps {
-                git 'https://github.com/SambathPK/automation-framework.git'
-            }
-        }
+    stages {
 
         stage('Build + Test in Docker') {
             steps {
