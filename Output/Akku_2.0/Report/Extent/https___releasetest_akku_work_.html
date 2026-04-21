@@ -1,0 +1,696 @@
+
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>Automation Framework</title>
+<link rel="apple-touch-icon" href="https://cdn.jsdelivr.net/gh/extent-framework/extent-github-cdn@b00a2d0486596e73dd7326beacf352c639623a0e/commons/img/logo.png">
+<link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/extent-framework/extent-github-cdn@b00a2d0486596e73dd7326beacf352c639623a0e/commons/img/logo.png">
+<link href="https://cdn.jsdelivr.net/gh/extent-framework/extent-github-cdn@ce8b10435bcbae260c334c0d0c6b61d2c19b6168/spark/css/spark-style.css" rel="stylesheet" />
+<link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/gh/extent-framework/extent-github-cdn@7cc78ce/spark/js/jsontree.js"></script>
+<style type="text/css"></style></head><body class="spa -report dark">
+  <div class="app">
+    <div class="layout">
+<div class="header navbar">
+<div class="vheader">
+<div class="nav-logo">
+<a href="#">
+<div class="logo" style="background-image: url('https://cdn.jsdelivr.net/gh/extent-framework/extent-github-cdn@b00a2d0486596e73dd7326beacf352c639623a0e/commons/img/logo.png')"></div>
+</a>
+</div>
+<ul class="nav-left">
+<li class="search-box">
+<a class="search-toggle" href="#">
+<i class="search-icon fa fa-search"></i>
+<i class="search-icon-close fa fa-close"></i>
+</a>
+</li>
+<li class="search-input"><input id="search-tests" class="form-control" type="text" placeholder="Search..."></li>
+</ul>
+<ul class="nav-right">
+<li class="m-r-10">
+<a href="#"><span class="badge badge-primary">
+<div class="tenant-header">
+<img class="tenant-logo"
+src="data:image/jpeg;base64,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"/>
+<div class="tenant-title">
+<span class="tenant-name"></span>
+</div>
+</div>
+</span></a>
+</li>
+<li class="m-r-10">
+<a href="#"><span class="badge badge-primary">Apr 21, 2026 18:29:27</span></a>
+</li>
+</ul>
+</div>
+</div><div class="side-nav">
+<div class="side-nav-inner">
+<ul class="side-nav-menu">
+<li class="nav-item dropdown" onclick="toggleView('test-view')">
+<a id="nav-test" class="dropdown-toggle" href="#">
+<span class="ico"><i class="fa fa-list"></i></span>
+</a>
+</li>
+<li class="nav-item dropdown" onclick="toggleView('exception-view')">
+<a id="nav-exception" class="dropdown-toggle" href="#">
+<span class="ico"><i class="fa fa-bug"></i></span>
+</a>
+</li>
+<li class="nav-item dropdown" onclick="toggleView('dashboard-view')">
+<a id="nav-dashboard" class="dropdown-toggle" href="#">
+<span class="ico"><i class="fa fa-bar-chart"></i></span>
+</a>
+</li>
+</ul>
+</div>
+</div>      <div class="vcontainer">
+        <div class="main-content">
+<div class="test-wrapper row view test-view">
+  <div class="test-list">
+    <div class="test-list-tools">
+<ul class="tools pull-left">
+<li><a href="#"><span class="font-size-14">Tests</span></a></li>
+</ul>
+<ul class="tools text-right">
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-exclamation-circle"></i></a>
+<ul id="status-toggle" class="dropdown-menu dropdown-md p-v-0">
+<a class="dropdown-item" status="fail" href="#"><span>Fail</span><span class="status danger"></span></a>
+<div class="dropdown-divider"></div>
+<a status="clear" class="dropdown-item" href="#"><span>Clear</span><span class="pull-right"><i class="fa fa-close"></i></span></a>
+</ul>
+</li>
+</ul>
+</div>    <div class="test-list-wrapper scrollable">
+      <ul class="test-list-item">
+        <li class="test-item"  status="fail" test-id="1"
+          author=""
+          tag=""
+          device="">
+          <div class="test-detail">
+            <p class="name">Login with valid credentials | Releasetest - RegressionTest</p>
+            <p class="text-sm">
+              <span>6:29:27 pm</span> / <span>00:00:00:855</span>
+              <span class="badge fail-bg log float-right">Fail</span>
+            </p>
+          </div>
+          <div class="test-contents d-none">
+<div class="detail-head">
+<div class="p-v-10">
+<div class="info">
+<h5 class="test-status text-fail">Login with valid credentials | Releasetest - RegressionTest</h5>
+<span class='badge badge-success'>04.21.2026 6:29:27 pm</span>
+<span class='badge badge-danger'>04.21.2026 6:29:28 pm</span>
+<span class='badge badge-default'>00:00:00:855</span>
+&middot; <span class='uri-anchor badge badge-default'>#test-id=1</span>
+<span title='Skip to the next failed step' class='badge badge-danger pointer float-right ne ml-1'><i class="fa fa-fast-forward"></i></span>
+<span title='Collapse all nodes' class='badge badge-default pointer float-right ct ml-1'><i class="fa fa-compress"></i></span>
+<span title='Expand all nodes' class='badge badge-default pointer float-right et'><i class="fa fa-expand"></i></span>
+</div>
+</div>
+</div><div class="detail-body mt-4">
+<table class="table table-sm">
+  <thead><tr><th class="status-col">Status</th><th class="timestamp-col">Timestamp</th><th class="details-col">Details</th></tr></thead>
+  <tbody>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>6:29:27 pm</td>
+        <td>
+          Tenant URL: https://releasetest.akku.work/
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log fail-bg">Fail</span></td>
+        <td>6:29:28 pm</td>
+        <td>
+          <textarea readonly class="code-block">java.lang.NullPointerException: Cannot invoke "org.openqa.selenium.WebDriver.findElement(org.openqa.selenium.By)" because "driver" is null
+	at org.openqa.selenium.support.ui.ExpectedConditions$6.apply(ExpectedConditions.java:171)
+	at org.openqa.selenium.support.ui.ExpectedConditions$6.apply(ExpectedConditions.java:168)
+	at org.openqa.selenium.support.ui.ExpectedConditions$50.apply(ExpectedConditions.java:1438)
+	at org.openqa.selenium.support.ui.ExpectedConditions$50.apply(ExpectedConditions.java:1434)
+	at org.openqa.selenium.support.ui.FluentWait.until(FluentWait.java:203)
+	at Utils.Base.enter(Base.java:347)
+	at Akku.LoginPage.loginUser(LoginPage.java:92)
+	at Akku.LoginPage.Login(LoginPage.java:76)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.testng.internal.invokers.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:139)
+	at org.testng.internal.invokers.TestInvoker.invokeMethod(TestInvoker.java:664)
+	at org.testng.internal.invokers.TestInvoker.invokeTestMethod(TestInvoker.java:228)
+	at org.testng.internal.invokers.MethodRunner.runInSequence(MethodRunner.java:63)
+	at org.testng.internal.invokers.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:961)
+	at org.testng.internal.invokers.TestInvoker.invokeTestMethods(TestInvoker.java:201)
+	at org.testng.internal.invokers.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:148)
+	at org.testng.internal.invokers.TestMethodWorker.run(TestMethodWorker.java:128)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at org.testng.TestRunner.privateRun(TestRunner.java:819)
+	at org.testng.TestRunner.run(TestRunner.java:619)
+	at org.testng.SuiteRunner.runTest(SuiteRunner.java:443)
+	at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:437)
+	at org.testng.SuiteRunner.privateRun(SuiteRunner.java:397)
+	at org.testng.SuiteRunner.run(SuiteRunner.java:336)
+	at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)
+	at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:95)
+	at org.testng.TestNG.runSuitesSequentially(TestNG.java:1301)
+	at org.testng.TestNG.runSuitesLocally(TestNG.java:1228)
+	at org.testng.TestNG.runSuites(TestNG.java:1134)
+	at org.testng.TestNG.run(TestNG.java:1101)
+	at org.apache.maven.surefire.testng.TestNGExecutor.run(TestNGExecutor.java:308)
+	at org.apache.maven.surefire.testng.TestNGXmlTestSuite.execute(TestNGXmlTestSuite.java:71)
+	at org.apache.maven.surefire.testng.TestNGProvider.invoke(TestNGProvider.java:113)
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:385)
+	at org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:162)
+	at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:507)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:495)
+</textarea>
+          
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log fail-bg">Fail</span></td>
+        <td>6:29:28 pm</td>
+        <td>
+          <textarea readonly class="code-block">java.lang.NullPointerException: Cannot invoke "org.openqa.selenium.TakesScreenshot.getScreenshotAs(org.openqa.selenium.OutputType)" because "Utils.Base.driver" is null
+	at Utils.Base.captureScreenshot(Base.java:773)
+	at Utils.Base.enter(Base.java:358)
+	at Akku.LoginPage.loginUser(LoginPage.java:92)
+	at Akku.LoginPage.Login(LoginPage.java:76)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.testng.internal.invokers.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:139)
+	at org.testng.internal.invokers.TestInvoker.invokeMethod(TestInvoker.java:664)
+	at org.testng.internal.invokers.TestInvoker.invokeTestMethod(TestInvoker.java:228)
+	at org.testng.internal.invokers.MethodRunner.runInSequence(MethodRunner.java:63)
+	at org.testng.internal.invokers.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:961)
+	at org.testng.internal.invokers.TestInvoker.invokeTestMethods(TestInvoker.java:201)
+	at org.testng.internal.invokers.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:148)
+	at org.testng.internal.invokers.TestMethodWorker.run(TestMethodWorker.java:128)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at org.testng.TestRunner.privateRun(TestRunner.java:819)
+	at org.testng.TestRunner.run(TestRunner.java:619)
+	at org.testng.SuiteRunner.runTest(SuiteRunner.java:443)
+	at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:437)
+	at org.testng.SuiteRunner.privateRun(SuiteRunner.java:397)
+	at org.testng.SuiteRunner.run(SuiteRunner.java:336)
+	at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)
+	at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:95)
+	at org.testng.TestNG.runSuitesSequentially(TestNG.java:1301)
+	at org.testng.TestNG.runSuitesLocally(TestNG.java:1228)
+	at org.testng.TestNG.runSuites(TestNG.java:1134)
+	at org.testng.TestNG.run(TestNG.java:1101)
+	at org.apache.maven.surefire.testng.TestNGExecutor.run(TestNGExecutor.java:308)
+	at org.apache.maven.surefire.testng.TestNGXmlTestSuite.execute(TestNGXmlTestSuite.java:71)
+	at org.apache.maven.surefire.testng.TestNGProvider.invoke(TestNGProvider.java:113)
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:385)
+	at org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:162)
+	at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:507)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:495)
+</textarea>
+          
+        </td>
+      </tr>
+  </tbody>
+</table>
+</div>
+          </div>
+        </li>
+        <li class="test-item"  status="fail" test-id="3"
+          author=""
+          tag=""
+          device="">
+          <div class="test-detail">
+            <p class="name">Login attempt with invalid username | Releasetest - RegressionTest</p>
+            <p class="text-sm">
+              <span>6:29:28 pm</span> / <span>00:00:00:161</span>
+              <span class="badge fail-bg log float-right">Fail</span>
+            </p>
+          </div>
+          <div class="test-contents d-none">
+<div class="detail-head">
+<div class="p-v-10">
+<div class="info">
+<h5 class="test-status text-fail">Login attempt with invalid username | Releasetest - RegressionTest</h5>
+<span class='badge badge-success'>04.21.2026 6:29:28 pm</span>
+<span class='badge badge-danger'>04.21.2026 6:29:28 pm</span>
+<span class='badge badge-default'>00:00:00:161</span>
+&middot; <span class='uri-anchor badge badge-default'>#test-id=3</span>
+<span title='Skip to the next failed step' class='badge badge-danger pointer float-right ne ml-1'><i class="fa fa-fast-forward"></i></span>
+<span title='Collapse all nodes' class='badge badge-default pointer float-right ct ml-1'><i class="fa fa-compress"></i></span>
+<span title='Expand all nodes' class='badge badge-default pointer float-right et'><i class="fa fa-expand"></i></span>
+</div>
+</div>
+</div><div class="detail-body mt-4">
+<table class="table table-sm">
+  <thead><tr><th class="status-col">Status</th><th class="timestamp-col">Timestamp</th><th class="details-col">Details</th></tr></thead>
+  <tbody>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>6:29:28 pm</td>
+        <td>
+          Tenant URL: https://releasetest.akku.work/
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log fail-bg">Fail</span></td>
+        <td>6:29:28 pm</td>
+        <td>
+          <textarea readonly class="code-block">java.lang.NullPointerException: Cannot invoke "org.openqa.selenium.WebDriver.findElement(org.openqa.selenium.By)" because "driver" is null
+	at org.openqa.selenium.support.ui.ExpectedConditions$6.apply(ExpectedConditions.java:171)
+	at org.openqa.selenium.support.ui.ExpectedConditions$6.apply(ExpectedConditions.java:168)
+	at org.openqa.selenium.support.ui.ExpectedConditions$50.apply(ExpectedConditions.java:1438)
+	at org.openqa.selenium.support.ui.ExpectedConditions$50.apply(ExpectedConditions.java:1434)
+	at org.openqa.selenium.support.ui.FluentWait.until(FluentWait.java:203)
+	at Utils.Base.enter(Base.java:347)
+	at Akku.LoginPage.attemptLoginWithInvalidUsername(LoginPage.java:101)
+	at Akku.LoginPage.loginWithInvalidUsername(LoginPage.java:81)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.testng.internal.invokers.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:139)
+	at org.testng.internal.invokers.TestInvoker.invokeMethod(TestInvoker.java:664)
+	at org.testng.internal.invokers.TestInvoker.invokeTestMethod(TestInvoker.java:228)
+	at org.testng.internal.invokers.MethodRunner.runInSequence(MethodRunner.java:63)
+	at org.testng.internal.invokers.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:961)
+	at org.testng.internal.invokers.TestInvoker.invokeTestMethods(TestInvoker.java:201)
+	at org.testng.internal.invokers.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:148)
+	at org.testng.internal.invokers.TestMethodWorker.run(TestMethodWorker.java:128)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at org.testng.TestRunner.privateRun(TestRunner.java:819)
+	at org.testng.TestRunner.run(TestRunner.java:619)
+	at org.testng.SuiteRunner.runTest(SuiteRunner.java:443)
+	at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:437)
+	at org.testng.SuiteRunner.privateRun(SuiteRunner.java:397)
+	at org.testng.SuiteRunner.run(SuiteRunner.java:336)
+	at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)
+	at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:95)
+	at org.testng.TestNG.runSuitesSequentially(TestNG.java:1301)
+	at org.testng.TestNG.runSuitesLocally(TestNG.java:1228)
+	at org.testng.TestNG.runSuites(TestNG.java:1134)
+	at org.testng.TestNG.run(TestNG.java:1101)
+	at org.apache.maven.surefire.testng.TestNGExecutor.run(TestNGExecutor.java:308)
+	at org.apache.maven.surefire.testng.TestNGXmlTestSuite.execute(TestNGXmlTestSuite.java:71)
+	at org.apache.maven.surefire.testng.TestNGProvider.invoke(TestNGProvider.java:113)
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:385)
+	at org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:162)
+	at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:507)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:495)
+</textarea>
+          
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log fail-bg">Fail</span></td>
+        <td>6:29:28 pm</td>
+        <td>
+          <textarea readonly class="code-block">java.lang.NullPointerException: Cannot invoke "org.openqa.selenium.TakesScreenshot.getScreenshotAs(org.openqa.selenium.OutputType)" because "Utils.Base.driver" is null
+	at Utils.Base.captureScreenshot(Base.java:773)
+	at Utils.Base.enter(Base.java:358)
+	at Akku.LoginPage.attemptLoginWithInvalidUsername(LoginPage.java:101)
+	at Akku.LoginPage.loginWithInvalidUsername(LoginPage.java:81)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.testng.internal.invokers.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:139)
+	at org.testng.internal.invokers.TestInvoker.invokeMethod(TestInvoker.java:664)
+	at org.testng.internal.invokers.TestInvoker.invokeTestMethod(TestInvoker.java:228)
+	at org.testng.internal.invokers.MethodRunner.runInSequence(MethodRunner.java:63)
+	at org.testng.internal.invokers.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:961)
+	at org.testng.internal.invokers.TestInvoker.invokeTestMethods(TestInvoker.java:201)
+	at org.testng.internal.invokers.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:148)
+	at org.testng.internal.invokers.TestMethodWorker.run(TestMethodWorker.java:128)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at org.testng.TestRunner.privateRun(TestRunner.java:819)
+	at org.testng.TestRunner.run(TestRunner.java:619)
+	at org.testng.SuiteRunner.runTest(SuiteRunner.java:443)
+	at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:437)
+	at org.testng.SuiteRunner.privateRun(SuiteRunner.java:397)
+	at org.testng.SuiteRunner.run(SuiteRunner.java:336)
+	at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)
+	at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:95)
+	at org.testng.TestNG.runSuitesSequentially(TestNG.java:1301)
+	at org.testng.TestNG.runSuitesLocally(TestNG.java:1228)
+	at org.testng.TestNG.runSuites(TestNG.java:1134)
+	at org.testng.TestNG.run(TestNG.java:1101)
+	at org.apache.maven.surefire.testng.TestNGExecutor.run(TestNGExecutor.java:308)
+	at org.apache.maven.surefire.testng.TestNGXmlTestSuite.execute(TestNGXmlTestSuite.java:71)
+	at org.apache.maven.surefire.testng.TestNGProvider.invoke(TestNGProvider.java:113)
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:385)
+	at org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:162)
+	at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:507)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:495)
+</textarea>
+          
+        </td>
+      </tr>
+  </tbody>
+</table>
+</div>
+          </div>
+        </li>
+        <li class="test-item"  status="fail" test-id="5"
+          author=""
+          tag=""
+          device="">
+          <div class="test-detail">
+            <p class="name">Login attempt with invalid password | Releasetest - RegressionTest</p>
+            <p class="text-sm">
+              <span>6:29:28 pm</span> / <span>00:00:00:103</span>
+              <span class="badge fail-bg log float-right">Fail</span>
+            </p>
+          </div>
+          <div class="test-contents d-none">
+<div class="detail-head">
+<div class="p-v-10">
+<div class="info">
+<h5 class="test-status text-fail">Login attempt with invalid password | Releasetest - RegressionTest</h5>
+<span class='badge badge-success'>04.21.2026 6:29:28 pm</span>
+<span class='badge badge-danger'>04.21.2026 6:29:28 pm</span>
+<span class='badge badge-default'>00:00:00:103</span>
+&middot; <span class='uri-anchor badge badge-default'>#test-id=5</span>
+<span title='Skip to the next failed step' class='badge badge-danger pointer float-right ne ml-1'><i class="fa fa-fast-forward"></i></span>
+<span title='Collapse all nodes' class='badge badge-default pointer float-right ct ml-1'><i class="fa fa-compress"></i></span>
+<span title='Expand all nodes' class='badge badge-default pointer float-right et'><i class="fa fa-expand"></i></span>
+</div>
+</div>
+</div><div class="detail-body mt-4">
+<table class="table table-sm">
+  <thead><tr><th class="status-col">Status</th><th class="timestamp-col">Timestamp</th><th class="details-col">Details</th></tr></thead>
+  <tbody>
+      <tr class="event-row">
+        <td><span class="badge log info-bg">Info</span></td>
+        <td>6:29:28 pm</td>
+        <td>
+          Tenant URL: https://releasetest.akku.work/
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log fail-bg">Fail</span></td>
+        <td>6:29:28 pm</td>
+        <td>
+          <textarea readonly class="code-block">java.lang.NullPointerException: Cannot invoke "org.openqa.selenium.WebDriver.findElement(org.openqa.selenium.By)" because "driver" is null
+	at org.openqa.selenium.support.ui.ExpectedConditions$6.apply(ExpectedConditions.java:171)
+	at org.openqa.selenium.support.ui.ExpectedConditions$6.apply(ExpectedConditions.java:168)
+	at org.openqa.selenium.support.ui.ExpectedConditions$50.apply(ExpectedConditions.java:1438)
+	at org.openqa.selenium.support.ui.ExpectedConditions$50.apply(ExpectedConditions.java:1434)
+	at org.openqa.selenium.support.ui.FluentWait.until(FluentWait.java:203)
+	at Utils.Base.enter(Base.java:347)
+	at Akku.LoginPage.attemptLoginWithInvalidPassword(LoginPage.java:108)
+	at Akku.LoginPage.loginWithInvalidPassword(LoginPage.java:86)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.testng.internal.invokers.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:139)
+	at org.testng.internal.invokers.TestInvoker.invokeMethod(TestInvoker.java:664)
+	at org.testng.internal.invokers.TestInvoker.invokeTestMethod(TestInvoker.java:228)
+	at org.testng.internal.invokers.MethodRunner.runInSequence(MethodRunner.java:63)
+	at org.testng.internal.invokers.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:961)
+	at org.testng.internal.invokers.TestInvoker.invokeTestMethods(TestInvoker.java:201)
+	at org.testng.internal.invokers.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:148)
+	at org.testng.internal.invokers.TestMethodWorker.run(TestMethodWorker.java:128)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at org.testng.TestRunner.privateRun(TestRunner.java:819)
+	at org.testng.TestRunner.run(TestRunner.java:619)
+	at org.testng.SuiteRunner.runTest(SuiteRunner.java:443)
+	at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:437)
+	at org.testng.SuiteRunner.privateRun(SuiteRunner.java:397)
+	at org.testng.SuiteRunner.run(SuiteRunner.java:336)
+	at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)
+	at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:95)
+	at org.testng.TestNG.runSuitesSequentially(TestNG.java:1301)
+	at org.testng.TestNG.runSuitesLocally(TestNG.java:1228)
+	at org.testng.TestNG.runSuites(TestNG.java:1134)
+	at org.testng.TestNG.run(TestNG.java:1101)
+	at org.apache.maven.surefire.testng.TestNGExecutor.run(TestNGExecutor.java:308)
+	at org.apache.maven.surefire.testng.TestNGXmlTestSuite.execute(TestNGXmlTestSuite.java:71)
+	at org.apache.maven.surefire.testng.TestNGProvider.invoke(TestNGProvider.java:113)
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:385)
+	at org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:162)
+	at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:507)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:495)
+</textarea>
+          
+        </td>
+      </tr>
+      <tr class="event-row">
+        <td><span class="badge log fail-bg">Fail</span></td>
+        <td>6:29:28 pm</td>
+        <td>
+          <textarea readonly class="code-block">java.lang.NullPointerException: Cannot invoke "org.openqa.selenium.TakesScreenshot.getScreenshotAs(org.openqa.selenium.OutputType)" because "Utils.Base.driver" is null
+	at Utils.Base.captureScreenshot(Base.java:773)
+	at Utils.Base.enter(Base.java:358)
+	at Akku.LoginPage.attemptLoginWithInvalidPassword(LoginPage.java:108)
+	at Akku.LoginPage.loginWithInvalidPassword(LoginPage.java:86)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.testng.internal.invokers.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:139)
+	at org.testng.internal.invokers.TestInvoker.invokeMethod(TestInvoker.java:664)
+	at org.testng.internal.invokers.TestInvoker.invokeTestMethod(TestInvoker.java:228)
+	at org.testng.internal.invokers.MethodRunner.runInSequence(MethodRunner.java:63)
+	at org.testng.internal.invokers.TestInvoker$MethodInvocationAgent.invoke(TestInvoker.java:961)
+	at org.testng.internal.invokers.TestInvoker.invokeTestMethods(TestInvoker.java:201)
+	at org.testng.internal.invokers.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:148)
+	at org.testng.internal.invokers.TestMethodWorker.run(TestMethodWorker.java:128)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at org.testng.TestRunner.privateRun(TestRunner.java:819)
+	at org.testng.TestRunner.run(TestRunner.java:619)
+	at org.testng.SuiteRunner.runTest(SuiteRunner.java:443)
+	at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:437)
+	at org.testng.SuiteRunner.privateRun(SuiteRunner.java:397)
+	at org.testng.SuiteRunner.run(SuiteRunner.java:336)
+	at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)
+	at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:95)
+	at org.testng.TestNG.runSuitesSequentially(TestNG.java:1301)
+	at org.testng.TestNG.runSuitesLocally(TestNG.java:1228)
+	at org.testng.TestNG.runSuites(TestNG.java:1134)
+	at org.testng.TestNG.run(TestNG.java:1101)
+	at org.apache.maven.surefire.testng.TestNGExecutor.run(TestNGExecutor.java:308)
+	at org.apache.maven.surefire.testng.TestNGXmlTestSuite.execute(TestNGXmlTestSuite.java:71)
+	at org.apache.maven.surefire.testng.TestNGProvider.invoke(TestNGProvider.java:113)
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:385)
+	at org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:162)
+	at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:507)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:495)
+</textarea>
+          
+        </td>
+      </tr>
+  </tbody>
+</table>
+</div>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+<div class="test-content scrollable">
+<div class="test-content-tools">
+<ul><li><a class="back-to-test" href="#"><i class="fa fa-arrow-left"></i></a></li></ul>
+</div>
+<div class="test-content-detail"><div class="detail-body"></div></div>
+</div></div>
+<div class="test-wrapper row view exception-view attributes-view">
+<div class="test-list">
+<div class="test-list-tools">
+<ul class="tools pull-left"><li><a href=""><span class="font-size-14">Exception</span></a></li></ul>
+<ul class="tools text-right"><li><a href="#"><span class="badge badge-primary">1</span></a></li></ul>
+</div>
+<div class="test-list-wrapper scrollable">
+<ul class="test-list-item">
+<li class="test-item">
+<div class="test-detail">
+<span class="meta">
+<span class='badge log badge-danger'>3</span>
+</span>
+<p class="name">java.lang.NullPointerException</p>
+<p class="duration text-sm">3 tests</p>
+</div>
+<div class="test-contents d-none">
+<div class="info">
+<h4>java.lang.NullPointerException</h4>
+<span status="fail" class='badge log badge-danger'>3 failed</span>
+</div>
+<table class='table table-sm mt-4'>
+<thead>
+<tr>
+<th class="status-col">Status</th>
+<th class="timestamp-col">Timestamp</th>
+<th>TestName</th>
+</tr>
+</thead>
+<tbody>
+<tr class="tag-test-status" status="fail">
+<td><span class="badge log fail-bg">Fail</span></td>
+<td>18:29:27 pm</td>
+<td>
+<a href="#" class="linked" test-id='1' id='1'>Login with valid credentials | Releasetest - RegressionTest</a>
+</td>
+</tr>
+<tr class="tag-test-status" status="fail">
+<td><span class="badge log fail-bg">Fail</span></td>
+<td>18:29:28 pm</td>
+<td>
+<a href="#" class="linked" test-id='3' id='3'>Login attempt with invalid username | Releasetest - RegressionTest</a>
+</td>
+</tr>
+<tr class="tag-test-status" status="fail">
+<td><span class="badge log fail-bg">Fail</span></td>
+<td>18:29:28 pm</td>
+<td>
+<a href="#" class="linked" test-id='5' id='5'>Login attempt with invalid password | Releasetest - RegressionTest</a>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="test-content scrollable">
+<div class="test-content-detail">
+<div class="detail-body"></div>
+</div>
+</div>
+</div><div class="container-fluid p-4 view dashboard-view">
+<div class="row">
+<div class="col-md-3">
+<div class="card"><div class="card-body">
+<p class="m-b-0">Started</p>
+<h3>Apr 21, 2026 18:29:27</h3>
+</div></div>
+</div>
+<div class="col-md-3">
+<div class="card"><div class="card-body">
+<p class="m-b-0">Ended</p>
+<h3>Apr 21, 2026 18:29:28</h3>
+</div></div>
+</div>
+<div class="col-md-3">
+<div class="card"><div class="card-body">
+<p class="m-b-0 text-pass">Tests Passed</p>
+<h3>0</h3>
+</div></div>
+</div>
+<div class="col-md-3">
+<div class="card"><div class="card-body">
+<p class="m-b-0 text-fail">Tests Failed</p>
+<h3>3</h3>
+</div></div>
+</div>
+</div>
+<div class="row">
+<div class="col-md-6">
+<div class="card">
+<div class="card-header">
+<h6 class="card-title">Tests</h6>
+</div>
+<div class="card-body">
+<div class="">
+<canvas id='parent-analysis' width='115' height='90'></canvas>
+</div>
+</div>
+<div class="card-footer">
+<div><small data-tooltip='0%'>
+<b>0</b> tests passed
+</small>
+</div>
+<div>
+<small data-tooltip='100%'><b>3</b> tests failed,
+<b>0</b> skipped, <b data-tooltip='0%'>0</b> others
+</small>
+</div>
+</div>
+</div>
+</div>
+<div class="col-md-6">
+<div class="card">
+<div class="card-header">
+<h6 class="card-title">Log events</h6>
+</div>
+<div class="card-body">
+<div class="">
+<canvas id='events-analysis' width='115' height='90'></canvas>
+</div>
+</div>
+<div class="card-footer">
+<div><small data-tooltip='0%'><b>0</b> events passed</small></div>
+<div>
+<small data-tooltip='66%'><b>6</b> events failed,
+<b data-tooltip='%'>3</b> others
+</small>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="row"><div class="col-md-12">
+<div class="card"><div class="card-header"><p>Timeline</p></div>
+<div class="card-body pt-0"><div>
+<canvas id="timeline" height="120"></canvas>
+</div></div>
+</div>
+</div></div>
+<script>
+var timeline = {
+"Login with valid credentials | Releasetest - RegressionTest":0.855,"Login attempt with invalid username | Releasetest - RegressionTest":0.161,"Login attempt with invalid password | Releasetest - RegressionTest":0.103
+};
+</script>
+<div class="row">
+<div class="col-lg-6 col-md-12 sysenv-container">
+<div class="card">
+<div class="card-header"><p>System/Environment</p></div>
+<div class="card-body pb-0 pt-0"><table class="table table-sm table-bordered">
+<thead><tr class="bg-gray"><th>Name</th><th>Value</th></tr></thead>
+<tbody>
+<tr>
+<td>OS</td>
+<td>Windows 11</td>
+</tr>
+<tr>
+<td>User</td>
+<td>Admin</td>
+</tr>
+<tr>
+<td>Tenant</td>
+<td>https://releasetest.akku.work/</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+</div>
+</div>
+<script>
+var statusGroup = {
+parentCount: 5,
+passParent: 0,
+failParent: 3,
+warningParent: 0,
+skipParent: 0,
+childCount: 5,
+passChild: 0,
+failChild: 0,
+warningChild: 0,
+skipChild: 0,
+infoChild: 0,
+grandChildCount: 5,
+passGrandChild: 0,
+failGrandChild: 0,
+warningGrandChild: 0,
+skipGrandChild: 0,
+infoGrandChild: 0,
+eventsCount: 5,
+passEvents: 0,
+failEvents: 6,
+warningEvents: 0,
+skipEvents: 0,
+infoEvents: 3
+};
+</script>        </div>
+      </div>
+    </div>
+  </div>
+<script src="https://cdn.jsdelivr.net/gh/extent-framework/extent-github-cdn@ce8b10435bcbae260c334c0d0c6b61d2c19b6168/spark/js/spark-script.js"></script>
+<script type="text/javascript"></script></body>
+</html>
