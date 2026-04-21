@@ -85,7 +85,7 @@ public class Base extends ExtentReportListener {
             capabilities.setCapability(ChromeOptions.CAPABILITY, chromeOptions);
 
             // Initialize RemoteWebDriver with combined capabilities
-            driver = new RemoteWebDriver(new URL("http://selenium-hub:4444/wd/hub"), chromeOptions.merge(capabilities));
+            driver = new RemoteWebDriver(new URL("http://localhost:4444/wd/hub"), chromeOptions.merge(capabilities));
             // driver.manage().window().maximize();
             // Open the URL and configure implicit waits
             driver.manage().window().maximize();
