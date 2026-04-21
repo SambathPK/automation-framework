@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Tenant Status</title>
+</head>
+<body>
+<h2>Tenant Smoke Test Status</h2>
+
+<div id="overall"></div>
+<ul id="tenants"></ul>
+
+<script>
+    fetch('tenant-summary.json')
+    .then(r => r.json())
+    .then(data => {
+      let overall = true;
+      for (let t in data) {
+        let li = document.createElement("li");
+        let status = data[t] ? "PASS" : "FAIL";
+        li.innerText = t + " : " + status;
+        document.getElementById("tenants").appendChild(li);
+        if (!data[t]) overall = false;
+      }
+      document.getElementById("overall").innerText =
+          "Overall Status: " + (overall ? "PASS" : "FAIL");
+    });
+</script>
+
+</body>
+</html>

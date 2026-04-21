@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite thread-count="3" parallel="methods" name="Failed suite [AkkuTestSuite]" guice-stage="DEVELOPMENT" verbose="0">
+  <listeners>
+    <listener class-name="Utils.ExtentReportListener"/>
+  </listeners>
+  <test thread-count="3" parallel="methods" name="SmokeTest(failed)" verbose="0">
+    <classes>
+      <class name="Akku.Admin_Dashboard">
+        <methods>
+          <include name="afterMethod"/>
+          <include name="afterSuite"/>
+          <include name="SuspiciousLogin" invocation-numbers="1"/>
+          <include name="beforeSuite"/>
+          <include name="beforeMethod"/>
+          <include name="FailedLogin"/>
+        </methods>
+      </class> <!-- Akku.Admin_Dashboard -->
+      <class name="Akku.LoginFlow">
+        <methods>
+          <include name="beforeMethod"/>
+          <include name="loginWithInvalidPassword"/>
+          <include name="afterMethod"/>
+          <include name="beforeSuite"/>
+          <include name="afterSuite"/>
+          <include name="loginWithInvalidUsername"/>
+        </methods>
+      </class> <!-- Akku.LoginFlow -->
+    </classes>
+  </test> <!-- SmokeTest(failed) -->
+  <test thread-count="3" parallel="methods" name="RegressionTest(failed)" verbose="0">
+    <classes>
+      <class name="Akku.TenantUserAccountProvisioningConfiguration">
+        <methods>
+          <include name="configureGwsTenantProvisioningConnector"/>
+          <include name="beforeMethod"/>
+          <include name="beforeSuite"/>
+          <include name="editGwsTenantProvisioningConnector"/>
+          <include name="afterMethod"/>
+          <include name="afterSuite"/>
+        </methods>
+      </class> <!-- Akku.TenantUserAccountProvisioningConfiguration -->
+      <class name="Akku.Audit_Logs">
+        <methods>
+          <include name="beforeSuite"/>
+          <include name="afterSuite"/>
+          <include name="testSearchAuditLogsForSpecificUser"/>
+          <include name="testAuditLogsForLoginEvents"/>
+          <include name="testDownloadUserAuditLogsCSV"/>
+          <include name="writeTenantSummary"/>
+          <include name="beforeMethod"/>
+          <include name="testDisplayUserAuditLogs"/>
+          <include name="testDisplayAdminAuditLogs"/>
+          <include name="afterMethod"/>
+          <include name="testDownloadAdminAuditLogsCSV"/>
+        </methods>
+      </class> <!-- Akku.Audit_Logs -->
+      <class name="Akku.PasswordManager">
+        <methods>
+          <include name="verifyLoginWithUpdatedPassword"/>
+          <include name="verifyPasswordUpdateWithNonCompliantData_SecondAttempt"/>
+          <include name="verifyPasswordUpdateWithValidData"/>
+          <include name="verifyPasswordUpdateFailsDueToReuseOfRecentPassword"/>
+          <include name="verifyPasswordPolicyUpdateWhenNotRecentlyUsedIsDisabled"/>
+          <include name="verifyPasswordUpdateWithNonCompliantData_FirstAttempt"/>
+          <include name="verifyPasswordPolicyUpdateWithValidData"/>
+          <include name="afterMethod"/>
+          <include name="beforeMethod"/>
+          <include name="verifyPasswordPolicyRestorationAndUpdate"/>
+          <include name="afterSuite"/>
+          <include name="beforeSuite"/>
+        </methods>
+      </class> <!-- Akku.PasswordManager -->
+      <class name="Akku.App_Management">
+        <methods>
+          <include name="editOpenidSsoApplication"/>
+          <include name="configureSamlSsoApplication"/>
+          <include name="beforeSuite"/>
+          <include name="editSamlSsoApplication"/>
+          <include name="clientAlreadyExistsForSamlApplication"/>
+          <include name="afterMethod"/>
+          <include name="afterSuite"/>
+          <include name="activateOpenidSsoApp"/>
+          <include name="clientAlreadyExistsForOpenidApplication"/>
+          <include name="deleteOpenidSsoApplication"/>
+          <include name="activateSamlSsoApp"/>
+          <include name="configureOpenidSsoApplication"/>
+          <include name="beforeMethod"/>
+        </methods>
+      </class> <!-- Akku.App_Management -->
+      <class name="Akku.Dashboard">
+        <methods>
+          <include name="AccessManagerProduct"/>
+          <include name="SupportProduct"/>
+          <include name="PasswordManagerProduct"/>
+          <include name="beforeMethod"/>
+          <include name="UserLifecycleProduct"/>
+          <include name="QuarantinedLogins"/>
+          <include name="CloudDirectoryProduct"/>
+          <include name="SuspiciousLogin"/>
+          <include name="afterSuite"/>
+          <include name="AdaptiveMFAProduct"/>
+          <include name="MDMProduct"/>
+          <include name="SuccessfulAttempts"/>
+          <include name="SSOProduct"/>
+          <include name="FailedLogin"/>
+          <include name="AddMoreLicenses"/>
+          <include name="FailedAttempts"/>
+          <include name="afterMethod"/>
+          <include name="LockedAccounts"/>
+          <include name="beforeSuite"/>
+        </methods>
+      </class> <!-- Akku.Dashboard -->
+      <class name="Akku.Policy_Management">
+        <methods>
+          <include name="verifyTenantAdminDeletesGpoPolicy"/>
+          <include name="testTenantAdminCanCreateAndAssignGpoPolicy"/>
+          <include name="testTenantAdminCanEditAndUpdatePolicyConfiguration"/>
+          <include name="testTenantAdminCanAssignOrUnassignGroupsFromGpoPolicy"/>
+          <include name="beforeMethod"/>
+          <include name="beforeSuite"/>
+          <include name="testTenantAdminCanEnableAndDisableGPOPolicy"/>
+          <include name="afterSuite"/>
+          <include name="testCannotCreateAnotherPolicyWithSamePolicyName"/>
+          <include name="afterMethod"/>
+        </methods>
+      </class> <!-- Akku.Policy_Management -->
+      <class name="Akku.UserDeletionProcess">
+        <methods>
+          <include name="beforeMethod"/>
+          <include name="afterSuite"/>
+          <include name="afterMethod"/>
+          <include name="deleteGwsTenantProvisioningConnector"/>
+          <include name="beforeSuite"/>
+        </methods>
+      </class> <!-- Akku.UserDeletionProcess -->
+      <class name="Akku.LoginPage">
+        <methods>
+          <include name="beforeSuite"/>
+          <include name="afterMethod"/>
+          <include name="afterSuite"/>
+          <include name="Login"/>
+          <include name="loginWithInvalidPassword"/>
+          <include name="beforeMethod"/>
+          <include name="loginWithInvalidUsername"/>
+        </methods>
+      </class> <!-- Akku.LoginPage -->
+      <class name="Akku.DeviceManagement">
+        <methods>
+          <include name="manageDeviceRestrictionsForSelectedUsers"/>
+          <include name="beforeMethod"/>
+          <include name="manageDeviceRestrictionsForAllUsers"/>
+          <include name="afterSuite"/>
+          <include name="afterMethod"/>
+          <include name="handleDeviceManagementErrors"/>
+          <include name="manageDeviceRestrictionsWithCSVUpload"/>
+          <include name="beforeSuite"/>
+        </methods>
+      </class> <!-- Akku.DeviceManagement -->
+    </classes>
+  </test> <!-- RegressionTest(failed) -->
+</suite> <!-- Failed suite [AkkuTestSuite] -->

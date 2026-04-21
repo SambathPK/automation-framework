@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="AkkuTestSuite" preserve-order="true">
+
+    <listeners>
+        <listener class-name="Utils.ExtentReportListener"/>
+    </listeners>
+
+    <test name="SmokeTest">
+        <classes>
+            <class name="Akku.Admin_Dashboard"/>
+            <class name="Akku.LoginFlow">
+                <methods>
+                    <exclude name="loginnormalbrowserflow"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+
+<!--    // Full regression suite: run all classes for only main test tenant-->
+    <test name="RegressionTest">
+        <classes>
+            <class name="Akku.LoginPage">
+                <methods>
+                    <exclude name="loginnormalbrowserflow"/>
+                </methods>
+            </class>
+            <class name="Akku.App_Management"></class>
+            <class name="Akku.User_Management"></class>
+            <class name="Akku.Admin_ResetPassword"></class>
+            <class name="Akku.Group_Management"></class>
+            <class name="Akku.UserProfile"></class>
+            <class name="Akku.User_Bulk_upload"></class>
+            <class name="Akku.PasswordManager"></class>
+            <class name="Akku.Role_Management"></class>
+            <class name="Akku.DeviceManagement"></class>
+            <class name="Akku.Audit_Logs"></class>
+            <class name="Akku.Access_Manager"></class>
+            <class name="Akku.TenantUserAccountProvisioningConfiguration"></class>
+            <class name="Akku.UserDeletionProcess"></class>
+            <class name="Akku.Policy_Management"></class>
+            <class name="Akku.Browser_Flow"></class>
+        </classes>
+    </test>
+
+</suite>

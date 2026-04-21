@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Akku Cybersecurity Solutions – Tenant Quality Health Report</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+html, body { margin:0; padding:0; height:100%; font-family:'Inter',system-ui; background:#0b0c1a; color:#e0e0e0; }
+body { display:flex; flex-direction:column; min-height:100vh; }
+
+.container { flex:1; display:flex; flex-direction:column; max-width:1400px; margin:auto; padding:35px 20px; }
+
+/* Header */
+.header { display:flex; flex-direction:column; align-items:center; justify-content:center; margin-bottom:50px; gap:6px; }
+.logo { width:200px; margin-bottom:10px; filter:drop-shadow(0 0 25px rgba(56,189,248,.5)); }
+.title { font-size:46px; font-weight:800; line-height:1.2; background:linear-gradient(90deg,#38bdf8,#22c55e); -webkit-background-clip:text; -webkit-text-fill-color:transparent; text-align:center; }
+.subtitle { font-size:20px; opacity:.85; text-align:center; letter-spacing:0.5px; }
+
+/* Cards */
+.cards { display:flex; flex-wrap:wrap; justify-content:space-between; gap:24px; margin-bottom:45px; }
+.card { flex:1 1 200px; max-width:280px; min-width:200px; background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.12);
+        padding:28px 22px; border-radius:20px; backdrop-filter:blur(12px); box-shadow:0 0 28px rgba(56,189,248,.15);
+        display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center;
+        transition: transform 0.3s ease, box-shadow 0.3s ease; position:relative;
+}
+.card:hover { transform: translateY(-6px); box-shadow:0 0 38px rgba(56,189,248,.25); }
+
+.card h2 { margin:0; font-size:42px; font-weight:700; color:#ffffff; background: linear-gradient(90deg,#38bdf8,#22c55e);
+            -webkit-background-clip:text; -webkit-text-fill-color:transparent; letter-spacing:0.5px; }
+.card p { margin-top:6px; font-size:14px; color:#b0b8c0; text-transform:uppercase; letter-spacing:0.04em; font-weight:600; }
+
+.card .time-info { font-size:13px; margin-top:10px; opacity:.85; line-height:1.4; color:#b0b8c0; font-weight:500; text-align:center; }
+
+.chartBox { height:140px; width:140px; margin-bottom:8px; }
+
+/* Table */
+.table-wrap { flex:1; background:rgba(255,255,255,.03); padding:28px; border-radius:18px; box-shadow:0 0 30px rgba(56,189,248,.12);
+              overflow-y:auto; max-height:550px; overflow-x:auto; transition: transform 0.3s ease; margin-top:15px; }
+.table-wrap:hover { transform:scale(1.01); }
+
+table { width:100%; border-collapse:collapse; text-align:center; font-size:15px; }
+th, td { padding:14px 12px; }
+th { opacity:.85; border-bottom:1px solid rgba(255,255,255,.3); font-weight:600; text-transform:uppercase; letter-spacing:0.04em; }
+td { border-bottom:1px solid rgba(255,255,255,.12); }
+tr:nth-child(even) { background:rgba(255,255,255,.02); }
+tr:hover { background:rgba(255,255,255,.05); }
+
+/* Badges & Links */
+.badge { padding:6px 16px; border-radius:16px; font-weight:600; font-size:12px; text-transform:uppercase; }
+.pass { background:#22c55e33;color:#22c55e; }
+.fail { background:#ef444433;color:#ef4444; }
+.link { color:#38bdf8; text-decoration:none; font-weight:600; }
+.link:hover { text-decoration:underline; }
+
+footer { text-align:center; font-size:14px; opacity:.75; letter-spacing:.08em; padding:18px 0; background:#0b0c1a; }
+</style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header">
+        <img src="../Images/akku-brand_logo.jpg" class="logo"/>
+        <div class="title">Akku Cybersecurity Solutions</div>
+        <div class="subtitle">Tenant Quality Health Dashboard</div>
+    </div>
+
+    <div class="cards">
+        <div class="card"><h2>1</h2><p>Total Tenants</p></div>
+        <div class="card"><h2>0</h2><p>Passed</p></div>
+        <div class="card"><h2>1</h2><p>Failed</p></div>
+        <div class="card">
+            <h2>59m 18s</h2><p>Total Execution Time</p>
+            <div class="time-info">Start: 15 Apr 2026 11:01:51<br>End: 15 Apr 2026 12:01:09</div>
+        </div>
+        <div class="card"><div class="chartBox"><canvas id="chart"></canvas></div><p>Health Overview</p></div>
+    </div>
+
+    <div class="table-wrap">
+        <table>
+            <tr><th>Tenant Name</th><th>Status</th><th>Execution Time</th><th>Detailed Report</th></tr>
+            <tr><td>Releasetest</td><td><span class='badge fail'>FAIL</span></td><td>58m 50s</td><td><a class='link' href='https___releasetest_akku_work_.html' target='_blank'>Open Report</a></td></tr>
+        </table>
+    </div>
+</div>
+
+<footer>© 2026 Akku Cybersecurity Solutions · All Rights Reserved</footer>
+
+<script>
+const ctx=document.getElementById('chart');
+new Chart(ctx,{
+    type:'doughnut',
+    data:{labels:['Passed','Failed'], datasets:[{data:[0,1], backgroundColor:['#22c55e','#ef4444'], borderWidth:0}]},
+    options:{cutout:'72%', plugins:{legend:{display:false}}, responsive:true, maintainAspectRatio:false}
+});
+</script>
+
+</body>
+</html>

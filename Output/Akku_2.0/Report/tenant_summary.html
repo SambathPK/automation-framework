@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+<meta charset='UTF-8'>
+<title>Akku Tenant Report</title>
+<script src='https://cdn.jsdelivr.net/npm/chart.js'></script>
+<style>body{font-family:sans-serif;} .badge.pass{background:#18c964;} .badge.fail{background:#ff5a5a;}</style>
+</head>
+<body>
+<h1>Tenant Report</h1>
+<div>Total Tenants: 2</div>
+<div>Passed: 2</div>
+<div>Failed: 0</div>
+<div>Overall Time: 0m 18s</div>
+<table border='1'><tr><th>Tenant</th><th>Status</th><th>Time</th><th>Report</th></tr><tr><td>Astra/</td><td><span class='badge pass'>PASS</span></td><td>00:10</td><td><a href='../reports/https___astra_akku_work_.html' target='_blank'>View Report</a></td></tr><tr><td>Testblue/</td><td><span class='badge pass'>PASS</span></td><td>00:08</td><td><a href='../reports/https___testblue_akku_work_.html' target='_blank'>View Report</a></td></tr></table>
+<canvas id='chart'></canvas>
+<script>
+const ctx = document.getElementById('chart').getContext('2d');
+new Chart(ctx, {type:'bar', data:{labels:['Astra/','Testblue/'], datasets:[{label:'Execution (ms)', data:[10315,8540], backgroundColor:'rgba(75,51,255,0.6)'}]}});
+</script>
+</body>
+</html>
