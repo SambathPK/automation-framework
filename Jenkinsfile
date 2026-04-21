@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        GRID_URL = "http://localhost:4444/wd/hub"
+        GRID_URL = "http://localhost:4444/status"
     }
 
     stages {
@@ -10,8 +10,7 @@ pipeline {
         stage('Cleanup Old Grid') {
             steps {
                 bat '''
-                docker-compose down || exit 0
-                docker rm -f selenium-hub chrome firefox 2>nul || exit 0
+                docker-compose down --remove-orphans || exit 0
                 '''
             }
         }
@@ -22,32 +21,34 @@ pipeline {
             }
         }
 
-        stage('Wait for Grid') {
+        stage('Wait for Grid (Stable Check)') {
             steps {
-                bat '''
-                echo Waiting for Selenium Grid...
+                powershell '''
+                $url = "http://localhost:4444/status"
+                $maxRetries = 30
+                $i = 0
 
-                set i=0
+                Write-Host "Waiting for Selenium Grid..."
 
-                :loop
-                set /a i+=1
+                do {
+                    try {
+                        $response = Invoke-RestMethod -Uri $url -TimeoutSec 5
 
-                curl -s http://localhost:4444/status > status.json
+                        if ($response.value.ready -eq $true) {
+                            Write-Host "Grid is READY"
+                            exit 0
+                        }
 
-                findstr "\"ready\":true" status.json > nul
+                    } catch {
+                        Write-Host "Grid not ready yet..."
+                    }
 
-                if %errorlevel%==0 (
-                    echo Grid READY
-                    exit /b 0
-                )
+                    Start-Sleep -Seconds 5
+                    $i++
+                } while ($i -lt $maxRetries)
 
-                if %i% geq 20 (
-                    echo Grid FAILED
-                    exit /b 1
-                )
-
-                timeout /t 5 > nul
-                goto loop
+                Write-Host "Grid FAILED to start"
+                exit 1
                 '''
             }
         }
@@ -68,7 +69,7 @@ pipeline {
 
     post {
         always {
-            bat 'docker-compose down'
+            bat 'docker-compose down --remove-orphans'
         }
     }
 }
