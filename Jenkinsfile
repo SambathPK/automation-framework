@@ -7,12 +7,6 @@ pipeline {
 
     stages {
 
-        stage('Checkout') {
-            steps {
-                git 'https://github.com/SambathPK/automation-framework.git'
-            }
-        }
-
         stage('Build') {
             steps {
                 sh 'mvn clean install -DskipTests'
