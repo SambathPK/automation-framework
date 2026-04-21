@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         GRID_URL = "http://host.docker.internal:4444/wd/hub"
-        GRID_STATUS = "http://localhost:4444/status"
+        GRID_STATUS_URL = "http://localhost:4444/status"
     }
 
     options {
@@ -13,15 +13,12 @@ pipeline {
 
     stages {
 
-        stage('Cleanup Workspace & Containers') {
+        stage('Cleanup Old Grid') {
             steps {
                 bat '''
-                echo Cleaning workspace and old containers...
+                echo Cleaning up old containers...
 
-                taskkill /F /IM java.exe || exit 0
-                rmdir /s /q target || exit 0
-
-                docker-compose down --remove-orphans -v || exit 0
+                docker-compose down --remove-orphans || exit 0
                 docker container prune -f || exit 0
                 '''
             }
@@ -37,16 +34,17 @@ pipeline {
             }
         }
 
-        stage('Wait for Grid (Stable Check)') {
+        stage('Wait for Grid (Stable Health Check)') {
             steps {
                 powershell '''
-                Write-Host "Waiting for Selenium Grid..."
+                Write-Host "Waiting for Selenium Grid to be ready..."
 
-                $url = "http://localhost:4444/status"
                 $maxRetries = 30
-                $sleep = 5
+                $delay = 5
+                $url = "http://localhost:4444/status"
 
                 for ($i = 1; $i -le $maxRetries; $i++) {
+
                     try {
                         $response = Invoke-RestMethod -Uri $url -TimeoutSec 5
 
@@ -54,38 +52,37 @@ pipeline {
                             Write-Host "Grid is READY"
                             exit 0
                         }
-                    }
-                    catch {
-                        Write-Host "Attempt $i : Grid not ready..."
+
+                    } catch {
+                        Write-Host "Attempt $i : Grid not ready yet..."
                     }
 
-                    Start-Sleep -Seconds $sleep
+                    Start-Sleep -Seconds $delay
                 }
 
-                Write-Host "Grid FAILED to start"
+                Write-Host "Grid FAILED to start within timeout"
                 exit 1
                 '''
             }
         }
 
-        stage('Run Tests (Isolated Maven Container)') {
+        stage('Run Tests (Maven + Docker)') {
             steps {
                 bat '''
-                echo Running tests...
+                echo Running tests inside Maven container...
 
                 docker run --rm ^
-                  -e GRID_URL=http://host.docker.internal:4444/wd/hub ^
-                  -v %cd%:/source ^
-                  -w /source ^
+                  -e GRID_URL=%GRID_URL% ^
+                  -v %cd%:/app ^
+                  -w /app ^
                   maven:3.9.6-eclipse-temurin-17 ^
-                  bash -c "mvn clean test"
+                  mvn clean test
                 '''
             }
         }
     }
 
     post {
-
         always {
             bat '''
             echo Cleaning up Selenium Grid...
@@ -95,11 +92,11 @@ pipeline {
         }
 
         success {
-            echo "BUILD SUCCESS 🚀"
+            echo "Pipeline completed successfully!"
         }
 
         failure {
-            echo "BUILD FAILED ❌ - Check logs"
+            echo "Pipeline failed. Check logs above."
         }
     }
 }
