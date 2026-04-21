@@ -3,14 +3,19 @@ pipeline {
 
     environment {
         GRID_URL = "http://selenium-hub:4444/wd/hub"
+        HOST_WORKSPACE = "/var/lib/docker/volumes/practisee2eflow_jenkins_home/_data/workspace/selenium-grid-pipeline"
     }
 
     stages {
 
-        stage('Debug Workspace') {
+        stage('Verify Docker Mount') {
             steps {
-                sh 'pwd'
-                sh 'ls -la'
+                sh """
+                docker run --rm \
+                  -v ${HOST_WORKSPACE}:/app \
+                  maven:3.9.6-eclipse-temurin-17 \
+                  sh -c "ls -la /app"
+                """
             }
         }
 
@@ -18,12 +23,12 @@ pipeline {
             steps {
                 sh """
                 docker run --rm \
-                --network=selenium-grid \
-                -e GRID_URL=${GRID_URL} \
-                -v ${WORKSPACE}:/app \
-                -w /app \
-                maven:3.9.6-eclipse-temurin-17 \
-                mvn clean test
+                  --network=selenium-grid \
+                  -e GRID_URL=${GRID_URL} \
+                  -v ${HOST_WORKSPACE}:/app \
+                  -w /app \
+                  maven:3.9.6-eclipse-temurin-17 \
+                  mvn clean test
                 """
             }
         }
