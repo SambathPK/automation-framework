@@ -7,9 +7,12 @@ pipeline {
 
     stages {
 
-        stage('Checkout Code') {
+        stage('Cleanup Old Grid') {
             steps {
-                checkout scm
+                bat '''
+                docker-compose down || exit 0
+                docker rm -f selenium-hub chrome firefox 2>nul || exit 0
+                '''
             }
         }
 
@@ -22,16 +25,13 @@ pipeline {
         stage('Wait for Grid') {
             steps {
                 bat '''
-                echo Waiting for Selenium Grid...
-
                 for /L %%i in (1,1,15) do (
                     curl -s http://localhost:4444/status | findstr "ready"
-                    if not errorlevel 1 goto ready
+                    if not errorlevel 1 goto ok
                     timeout /t 5
                 )
-
-                :ready
-                echo Grid is READY
+                :ok
+                echo Grid Ready
                 '''
             }
         }
