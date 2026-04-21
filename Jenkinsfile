@@ -27,17 +27,27 @@ pipeline {
                 bat '''
                 echo Waiting for Selenium Grid...
 
-                for /L %%i in (1,1,20) do (
-                    curl -s http://localhost:4444/status > nul
-                    if not errorlevel 1 (
-                        echo Grid is READY
-                        exit /b 0
-                    )
-                    timeout /t 5 > nul
+                set i=0
+
+                :loop
+                set /a i+=1
+
+                curl -s http://localhost:4444/status > status.json
+
+                findstr "\"ready\":true" status.json > nul
+
+                if %errorlevel%==0 (
+                    echo Grid READY
+                    exit /b 0
                 )
 
-                echo Grid FAILED
-                exit /b 1
+                if %i% geq 20 (
+                    echo Grid FAILED
+                    exit /b 1
+                )
+
+                timeout /t 5 > nul
+                goto loop
                 '''
             }
         }
