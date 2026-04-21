@@ -19,13 +19,12 @@ pipeline {
             }
         }
 
-        stage('Wait for Grid Ready') {
+        stage('Wait for Grid') {
             steps {
                 sh '''
-                echo "Waiting for Selenium Grid..."
-
                 for i in {1..15}; do
-                  curl -s http://localhost:4444/status | grep ready && echo "Grid is READY" && break
+                  curl -s http://localhost:4444/status | grep ready && break
+                  echo "Waiting..."
                   sleep 5
                 done
                 '''
@@ -45,19 +44,11 @@ pipeline {
                 """
             }
         }
-
-        stage('Generate Reports') {
-            steps {
-                sh 'echo "Attach Allure / Extent reports here"'
-            }
-        }
     }
 
     post {
         always {
-            stage('Cleanup') {
-                sh 'docker-compose down'
-            }
+            sh 'docker-compose down'
         }
     }
 }
