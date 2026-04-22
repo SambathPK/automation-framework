@@ -90,7 +90,6 @@ public class Base extends ExtentReportListener {
             // Open the URL and configure implicit waits
             driver.manage().window().maximize();
             driver.get(url);
-            driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
             driver.manage().deleteAllCookies(); // Clear cookies to avoid session issues
 
             System.out.println("Browser launched successfully with window size 1920x1080.");

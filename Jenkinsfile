@@ -39,9 +39,9 @@ pipeline {
 
     }
 
-    post {
-        always {
-            bat 'docker-compose down'
-        }
-    }
-}
+//     post {
+//         always {
+//             bat 'docker-compose down'
+//         }
+//     }
+// }
