@@ -7,15 +7,16 @@ pipeline {
 
     stages {
 
-        stage('Start Selenium Grid') {
+        stage('Start Grid') {
             steps {
+                bat 'docker-compose down || exit 0'
                 bat 'docker-compose up -d'
             }
         }
 
         stage('Wait for Grid') {
             steps {
-                bat 'powershell Start-Sleep -Seconds 10'
+                bat 'powershell -Command "Start-Sleep -Seconds 15"'
             }
         }
 
@@ -28,20 +29,18 @@ pipeline {
         stage('Run Tests') {
             steps {
                 bat """
-                docker run --rm ^
-                  --network=selenium-grid ^
-                  -e GRID_URL=%GRID_URL% ^
-                  maven:3.9.6-eclipse-temurin-17 ^
-                  sh -c "git clone https://github.com/SambathPK/automation-framework.git && cd automation-framework && mvn clean test"
+                git clone https://github.com/SambathPK/automation-framework.git repo || exit 0
+                cd repo
+                mvn clean test -DGRID_URL=%GRID_URL%
                 """
             }
         }
 
     }
 
-//     post {
-//         always {
-//             bat 'docker-compose down'
-//         }
-//     }
-  }
+    post {
+        always {
+            bat 'docker-compose down || exit 0'
+        }
+    }
+}
