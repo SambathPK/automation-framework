@@ -1950,62 +1950,62 @@ public class Base extends ExtentReportListener {
     }
 
 
-    public static void selectUserFromPaginatedTable(
-            By tableRowsLocator,
-            By userTextLocatorInRow,
-            By nextPageLocator,
-            String requiredUser) {
-
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(40));
-        JavascriptExecutor js = (JavascriptExecutor) driver;
-
-        boolean found = false;
-
-        while (true) {
-            // Wait for rows on current page
-            List<WebElement> rows = wait.until(
-                    ExpectedConditions.presenceOfAllElementsLocatedBy(tableRowsLocator)
-            );
-
-            for (WebElement row : rows) {
-                WebElement userCell = row.findElement(userTextLocatorInRow);
-                String userText = userCell.getText().trim();
-
-                if (userText.equalsIgnoreCase(requiredUser)) {
-                    js.executeScript("arguments[0].scrollIntoView({block:'center'});", userCell);
-                    wait.until(ExpectedConditions.elementToBeClickable(userCell)).click();
-
-                    test.log(Status.PASS, "Clicked user: " + userText);
-                    found = true;
-                    return;
-                }
-            }
-
-            // If user not found, try next page
-            WebElement nextBtn;
-            try {
-                nextBtn = driver.findElement(nextPageLocator);
-            } catch (NoSuchElementException e) {
-                break; // no pagination
-            }
-
-            if (!nextBtn.isEnabled()
-                    || nextBtn.getAttribute("class").contains("disabled")) {
-                break; // last page reached
-            }
-
-            js.executeScript("arguments[0].scrollIntoView({block:'center'});", nextBtn);
-            nextBtn.click();
-
-            // Wait for page/table refresh
-            wait.until(ExpectedConditions.stalenessOf(rows.get(0)));
-        }
-
-        // Final failure
-        test.log(Status.FAIL,
-                "User not found in table: " + requiredUser,
-                MediaEntityBuilder.createScreenCaptureFromPath(captureScreenshot()).build());
-    }
+//    public static void selectUserFromPaginatedTable(
+//            By tableRowsLocator,
+//            By userTextLocatorInRow,
+//            By nextPageLocator,
+//            String requiredUser) {
+//
+//        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(40));
+//        JavascriptExecutor js = (JavascriptExecutor) driver;
+//
+//        boolean found = false;
+//
+//        while (true) {
+//            // Wait for rows on current page
+//            List<WebElement> rows = wait.until(
+//                    ExpectedConditions.presenceOfAllElementsLocatedBy(tableRowsLocator)
+//            );
+//
+//            for (WebElement row : rows) {
+//                WebElement userCell = row.findElement(userTextLocatorInRow);
+//                String userText = userCell.getText().trim();
+//
+//                if (userText.equalsIgnoreCase(requiredUser)) {
+//                    js.executeScript("arguments[0].scrollIntoView({block:'center'});", userCell);
+//                    wait.until(ExpectedConditions.elementToBeClickable(userCell)).click();
+//
+//                    test.log(Status.PASS, "Clicked user: " + userText);
+//                    found = true;
+//                    return;
+//                }
+//            }
+//
+//            // If user not found, try next page
+//            WebElement nextBtn;
+//            try {
+//                nextBtn = driver.findElement(nextPageLocator);
+//            } catch (NoSuchElementException e) {
+//                break; // no pagination
+//            }
+//
+//            if (!nextBtn.isEnabled()
+//                    || nextBtn.getAttribute("class").contains("disabled")) {
+//                break; // last page reached
+//            }
+//
+//            js.executeScript("arguments[0].scrollIntoView({block:'center'});", nextBtn);
+//            nextBtn.click();
+//
+//            // Wait for page/table refresh
+//            wait.until(ExpectedConditions.stalenessOf(rows.get(0)));
+//        }
+//
+//        // Final failure
+//        test.log(Status.FAIL,
+//                "User not found in table: " + requiredUser,
+//                MediaEntityBuilder.createScreenCaptureFromPath(captureScreenshot()).build());
+//    }
 
 
     public static String getClipboardContent() throws UnsupportedFlavorException, IOException {
