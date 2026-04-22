@@ -3,6 +3,7 @@ pipeline {
 
     environment {
         GRID_URL = "http://localhost:4444/wd/hub"
+        REPORT_PATH = "Output/Akku_2.0/Report/Extent/Akku-Tenant-Quality-Health-Report.html"
     }
 
     stages {
@@ -16,7 +17,7 @@ pipeline {
 
         stage('Wait for Grid') {
             steps {
-                bat 'powershell -Command "Start-Sleep -Seconds 15"'
+                bat 'powershell -Command "Start-Sleep -Seconds 20"'
             }
         }
 
@@ -36,9 +37,46 @@ pipeline {
             }
         }
 
+        stage('Archive Reports') {
+            steps {
+                bat """
+                echo Archiving reports...
+                dir repo\\Output\\Akku_2.0\\Report\\Extent
+                """
+            }
+        }
     }
 
     post {
+
+        success {
+            emailext (
+                to: 'sambath351@gmail.com',
+                subject: "✅ BUILD SUCCESS - Selenium Grid Tests",
+                body: """
+                <h3>Build Successful</h3>
+                <p>All automation tests passed successfully.</p>
+                <p>Attached is the execution report.</p>
+                """,
+                attachmentsPattern: 'repo/Output/Akku_2.0/Report/Extent/*.html',
+                mimeType: 'text/html'
+            )
+        }
+
+        failure {
+            emailext (
+                to: '@gmail.com',
+                subject: "❌ BUILD FAILED - Selenium Grid Tests",
+                body: """
+                <h3>Build Failed</h3>
+                <p>Check Jenkins console for details.</p>
+                <p>Report attached for debugging.</p>
+                """,
+                attachmentsPattern: 'repo/Output/Akku_2.0/Report/Extent/*.html',
+                mimeType: 'text/html'
+            )
+        }
+
         always {
             bat 'docker-compose down || exit 0'
         }
